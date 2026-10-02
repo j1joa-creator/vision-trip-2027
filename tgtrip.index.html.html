@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>추천해줘 - 튀르키예·그리스 성지순례 결정 기록지</title>
+  <style>
+    /* CSS Reset & Variable Design System */
+    :root {
+      --bg-main: #f8f6f0;
+      --bg-card: #ffffff;
+      --text-main: #2b2825;
+      --text-muted: #666059;
+      --primary: #c2593f; /* 지중해/테라코타 톤 */
+      --primary-hover: #a3442c;
+      --secondary: #2b5b84; /* Aegean Blue 톤 */
+      --accent: #d99b26; /* 카파도키아 일출 Gold */
+      --border: #e2ded4;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-size: 17px; /* 본문 17px 이상 준수 */
+      line-height: 1.6;
+      padding: 16px;
+      word-break: keep-all;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header & Navigation Elements */
+    header {
+      background: var(--bg-card);
+      padding: 24px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .badge-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .badge {
+      background: var(--bg-main);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background-color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      min-height: 48px; /* 누르기 쉬운 버튼 크기 */
+    }
+
+    .btn:hover, .btn:focus {
+      background-color: var(--primary-hover);
+      outline: 2px solid var(--text-main);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+    }
+    .btn-secondary:hover, .btn-secondary:focus {
+      background-color: #1e4262;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border: 2px solid var(--border);
+    }
+    .btn-outline:hover, .btn-outline:focus {
+      background: var(--border);
+    }
+
+    /* SVG Illustrated Banner */
+    .hero-banner {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(180deg, #e0f2fe 0%, #fef3c7 100%);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Cards & Layout Grid */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      font-size: 22px;
+      color: var(--secondary);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .info-item {
+      background: var(--bg-main);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .info-item strong {
+      display: block;
+      color: var(--primary);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    /* Tab navigation for sub-details */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 580px; /* Responsive table scrolling */
+      font-size: 15px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* Itinerary Accordion / List */
+    .day-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: var(--bg-card);
+      overflow: hidden;
+    }
+
+    .day-header {
+      background: var(--bg-main);
+      padding: 14px 16px;
+      font-weight: bold;
+      font-size: 18px;
+      color: var(--secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .day-body {
+      padding: 16px;
+    }
+
+    .timeline-item {
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .time-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: bold;
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* External Map Button */
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 14px;
+      background: #4285f4;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .map-btn:hover, .map-btn:focus {
+      background: #2b6cb0;
+      outline: 2px solid var(--text-main);
+    }
+
+    /* Checklist Section */
+    .progress-bar-container {
+      background: var(--border);
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 12px 0 16px 0;
+    }
+
+    .progress-bar {
+      background: var(--primary);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    /* Unconfirmed Block */
+    .unconfirmed-box {
+      background: #fff8e6;
+      border: 1px dashed var(--accent);
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+
+    .unconfirmed-box strong {
+      color: #b45309;
+    }
+
+    /* Alert Banner */
+    .alert-banner {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #3730a3;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Print Specific Styles */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 12pt;
+        padding: 0;
+      }
+
+      .header-actions, .hero-banner, .btn, .map-btn, .progress-bar-container, .alert-banner, #reset-btn, #share-btn, #print-btn {
+        display: none !important;
+      }
+
+      .card, header, .day-box {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+        margin-bottom: 16px;
+      }
+
+      .checklist input[type="checkbox"] {
+        display: none;
+      }
+
+      .checklist-print-status {
+        display: inline !important;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+
+      a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+      }
+    }
+
+    .checklist-print-status {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 헤더 영역 -->
+  <header>
+    <div class="header-top">
+      <div>
+        <h1>추천해줘</h1>
+        <p style="color: var(--text-muted);">튀르키예·그리스 성지순례 결정 기록지 (7박 9일)</p>
+        <div class="badge-group">
+          <span class="badge">📅 2027.02.05 ~ 02.13</span>
+          <span class="badge">👥 성인 4명</span>
+          <span class="badge">💰 1인당 약 400만 원</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn" id="print-btn" onclick="window.print();">🖨️ 인쇄 / PDF 저장</button>
+      <button class="btn btn-secondary" id="share-btn" onclick="sharePage();">🔗 페이지 링크 복사</button>
+      <button class="btn btn-outline" id="reset-btn" onclick="resetChecklist();">🔄 체크리스트 초기화</button>
+    </div>
+  </header>
+
+  <!-- 안내 배너 -->
+  <div class="alert-banner" id="storage-alert">
+    📢 <strong>안내:</strong> 본 페이지는 외부 API나 DB 연결 없이 대화에서 확정한 여행 결정안만을 안전하게 표시합니다. 체크 상태는 본 기기 브라우저에만 저장되며, 가족 간 공유 페이지는 누구나 접근 가능한 공개 링크입니다.
+  </div>
+
+  <!-- 귀여운 창작 SVG 랜드마크 대표 풍경 -->
+  <div class="hero-banner" aria-label="튀르키예 카파도키아 열기구와 그리스 아크로폴리스 창작 SVG 풍경">
+    <svg class="hero-svg" viewBox="0 0 800 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 하늘 배경 -->
+      <rect width="800" height="220" fill="url(#skyGrad)"/>
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="220">
+          <stop offset="0%" stop-color="#bae6fd"/>
+          <stop offset="100%" stop-color="#fef3c7"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 카파도키아 기암괴석 (좌측) -->
+      <path d="M 20 220 Q 50 100 80 220 Z" fill="#d97706" opacity="0.7"/>
+      <path d="M 70 220 Q 110 80 150 220 Z" fill="#b45309" opacity="0.8"/>
+      <path d="M 130 220 Q 160 120 190 220 Z" fill="#d97706" opacity="0.6"/>
+
+      <!-- 귀여운 열기구들 -->
+      <g transform="translate(60, 35)">
+        <ellipse cx="20" cy="25" rx="18" ry="22" fill="#ef4444"/>
+        <path d="M 10 25 Q 20 45 30 25" fill="#fde047"/>
+        <rect x="17" y="50" width="6" height="5" fill="#78350f"/>
+        <line x1="12" y1="42" x2="17" y2="50" stroke="#78350f" stroke-width="1"/>
+        <line x1="28" y1="42" x2="23" y2="50" stroke="#78350f" stroke-width="1"/>
+      </g>
+      <g transform="translate(140, 20) scale(0.7)">
+        <ellipse cx="20" cy="25" rx="18" ry="22" fill="#0284c7"/>
+        <path d="M 10 25 Q 20 45 30 25" fill="#ffffff"/>
+        <rect x="17" y="50" width="6" height="5" fill="#78350f"/>
+      </g>
+
+      <!-- 아테네 파르테논 신전 스타일 유적 (우측) -->
+      <g transform="translate(520, 110)">
+        <!-- 언덕 -->
+        <path d="M -40 110 Q 100 60 260 110 Z" fill="#92400e" opacity="0.3"/>
+        <!-- 신전 기둥 및 지붕 -->
+        <polygon points="10,40 110,10 210,40" fill="#f59e0b"/>
+        <rect x="20" y="40" width="180" height="8" fill="#d97706"/>
+        <!-- 기둥 6개 -->
+        <rect x="30" y="48" width="12" height="52" fill="#fffdfa"/>
+        <rect x="60" y="48" width="12" height="52" fill="#fffdfa"/>
+        <rect x="90" y="48" width="12" height="52" fill="#fffdfa"/>
+        <rect x="120" y="48" width="12" height="52" fill="#fffdfa"/>
+        <rect x="150" y="48" width="12" height="52" fill="#fffdfa"/>
+        <rect x="180" y="48" width="12" height="52" fill="#fffdfa"/>
+        <!-- 바닥 -->
+        <rect x="15" y="100" width="190" height="10" fill="#d97706"/>
+      </g>
+
+      <!-- 구름 -->
+      <circle cx="340" cy="50" r="18" fill="#ffffff" opacity="0.8"/>
+      <circle cx="360" cy="45" r="22" fill="#ffffff" opacity="0.8"/>
+      <circle cx="380" cy="50" r="16" fill="#ffffff" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <!-- 1. 여행 개요 카드 -->
+  <section class="card">
+    <h2>📌 여행 개요 및 이동 수단</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>지역 및 기간</strong>
+        튀르키예·그리스 / 2027.02.05 ~ 02.13 (7박 9일)
+      </div>
+      <div class="info-item">
+        <strong>동행 구성 및 예산</strong>
+        성인 4명 / 1인당 약 400만 원 (항공, 4성급 숙박, 식비, 입장료, 전용차량 포함)
+      </div>
+      <div class="info-item">
+        <strong>선호 스타일</strong>
+        역사·성경 가이드 중심 탐방, 로컬 향토 명물 맛집/카페, 하루 1만 보 이상 도보
+      </div>
+      <div class="info-item">
+        <strong>주요 이동수단</strong>
+        국가 간 항공 + 현지 국내선 2회 + 전용 차량/가이드
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 날짜별 일정 및 소요시간 -->
+  <section class="card">
+    <h2>🗓️️ 날짜별 일정 및 이동 소요시간</h2>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 1 (2/5, 목) | 인천 ➔ 이스탄불</span>
+        <span style="font-size:14px; font-weight:normal;">✈️ 약 11시간 30분 비행</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">도착</span> 인천공항 출발 ➔ 이스탄불 국제공항(IST) 도착
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">이동</span> 전용차량 이용 시내 숙소 이동 (약 50분 소요) 후 휴식
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 2 (2/6, 금) | 이스탄불 탐방 ➔ 카파도키아</span>
+        <span style="font-size:14px; font-weight:normal;">✈️ 국내선 약 1시간 20분</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 아야 소피아 및 이스탄불 역사지구 탐방
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EC%95%84%EC%95%BC%20%EC%86%8C%ED%94%BC%EC%95%84%20Istanbul" target="_blank" rel="noopener noreferrer" class="map-btn">📍 아야 소피아 지도 보기 (새 탭)</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=%EC%95%84%EC%95%BC%20%EC%86%8C%ED%94%BC%EC%95%84%20Istanbul" target="_blank" rel="noopener noreferrer" class="map-btn" style="background:#34a853;">🚩 길찾기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">점심</span> 100년 전통 Tarihi Sultanahmet Köftecisi (쾨프테 & 항아리 케밥)
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> 보스포루스 해협 크루즈 ➔ Pierre Loti 뷰 카페
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">저녁</span> 공항 이동 (차로 50분) ➔ 국내선으로 카파도키아 이동 ➔ 숙소 차로 이동 (45분)
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 3 (2/7, 토) | 카파도키아 (열기구🎈) ➔ 이즈미르/셀축</span>
+        <span style="font-size:14px; font-weight:normal;">✈️ 국내선 약 1시간 25분</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">새벽</span> 카파도키아 열기구 버블 투어 🎈 (기상 악화 시 대체 프로그램 진행)
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 괴레메 야외박물관 ➔ 데린구유 지하도시 탐방
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EA%B4%B4%EB%A0%88%EB%A9%84%20%EC%95%BC%EC%95%B8%EB%B0%95%EB%AC%BC%EA%B4%80%20Cappadocia" target="_blank" rel="noopener noreferrer" class="map-btn">📍 괴레메 박물관 지도 보기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> Museum Hotel Rooftop 카페 ➔ 카파도키아 공항 이동 (차로 45분)
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">저녁</span> 이즈미르(ADB) 행 국내선 탑승 ➔ 셀축 숙소 이동 (차로 50분)
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 4 (2/8, 일) | 셀축/에페소 ➔ 그리스 아테네</span>
+        <span style="font-size:14px; font-weight:normal;">✈️ 국제선 약 1시간</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 에페소 고대 유적 ➔ 사도 요한 교회 ➔ 성모 마리아의 집
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EC%97%90%ED%8E%98%EC%86%8C%20%EA%B3%A4%EB%8C%80%EC%9C%A0%EC%A0%81%20Selcuk" target="_blank" rel="noopener noreferrer" class="map-btn">📍 에페소 유적 지도 보기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">점심</span> 시린제 마을 탐방 및 야외 정원 카페 (모래 커피)
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> 이즈미르 공항 이동 (차로 50분) ➔ 아테네(ATH) 행 항공 탑승
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">저녁</span> 아테네 공항 도착 후 시내 이동 (차로 40분) ➔ 플라카 지구 야경 감상
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 5 (2/9, 월) | 아테네 시내 성지 탐방</span>
+        <span style="font-size:14px; font-weight:normal;">🚘 시내 전용차량 / 도보</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 아크로폴리스 & 아레오바고 언덕 (사도 바울 복음 전파지)
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EC%95%84%ED%81%AC%EB%A1%9C%ED%8F%B4%EB%A6%AC%EC%8A%A4%20Athens" target="_blank" rel="noopener noreferrer" class="map-btn">📍 아크로폴리스 지도 보기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">점심</span> Kostas Souvlaki (전통 수블라키) 또는 To Kafeneio (무사카)
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> 신 아크로폴리스 박물관 ➔ A for Athens 루프탑 카페 (전망)
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 6 (2/10, 화) | 아테네 ➔ 고린도 ➔ 칼람바카</span>
+        <span style="font-size:14px; font-weight:normal;">🚘 차로 약 1시간 15분 + 4시간</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 고린도 운하 ➔ 고대 고린도 유적지 & 사도 바울 강단터
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EA%B3%A4%EB%8C%80%20%EA%B3%A0%EB%A6%B0%EB%8F%84%20%EC%9C%A0%EC%A0%81%20Corinth" target="_blank" rel="noopener noreferrer" class="map-btn">📍 고대 고린도 지도 보기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> 고린도에서 칼람바카(메테오라)로 전용차량 이동 (약 4시간 소요)
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 7 (2/11, 수) | 메테오라 수도원 ➔ 아테네 복귀</span>
+        <span style="font-size:14px; font-weight:normal;">🚘 차로 약 4시간</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">오전</span> 메테오라 공중 수도원 탐방 (대메테오론, 성 스테파노 등 2~3곳)
+          <br><a href="https://www.google.com/maps/search/?api=1&query=%EB%A9%94%ED%85%8C%EC%98%A4%EB%9D%BC%20%EC%88%98%EB%8F%84%EC%9B%90%20Meteora" target="_blank" rel="noopener noreferrer" class="map-btn">📍 메테오라 지도 보기 (새 탭)</a>
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">오후</span> 칼람바카 출발 ➔ 아테네 차로 복귀 (약 4시간 소요) 후 마무리 저녁
+        </div>
+      </div>
+    </div>
+
+    <div class="day-box">
+      <div class="day-header">
+        <span>Day 8 ~ 9 (2/12 ~ 2/13) | 아테네 ➔ 인천</span>
+        <span style="font-size:14px; font-weight:normal;">✈️ 약 10시간 30분 비행</span>
+      </div>
+      <div class="day-body">
+        <div class="timeline-item">
+          <span class="time-badge">2/12</span> 아테네 공항으로 이동 (차로 40분) ➔ 인천행 항공 탑승
+        </div>
+        <div class="timeline-item">
+          <span class="time-badge">2/13</span> 인천 국제공항 도착 및 성지순례 여정 종료
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 명소 세부 정보 테이블 -->
+  <section class="card">
+    <h2>🏛️ 주요 명소 세부 정보 (입장료 및 권장시간)</h2>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>명소명</th>
+            <th>위치</th>
+            <th>운영 시간</th>
+            <th>입장료</th>
+            <th>혼잡 적은 시간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>아야 소피아</strong></td>
+            <td>이스탄불</td>
+            <td>09:00 ~ 19:30</td>
+            <td>€25</td>
+            <td>개장 직후 (09:00 ~ 10:00)</td>
+          </tr>
+          <tr>
+            <td><strong>괴레메 야외박물관</strong></td>
+            <td>카파도키아</td>
+            <td>08:00 ~ 17:00</td>
+            <td>€20</td>
+            <td>오전 일찍 (08:30 ~ 09:30)</td>
+          </tr>
+          <tr>
+            <td><strong>데린구유 지하도시</strong></td>
+            <td>카파도키아</td>
+            <td>08:00 ~ 17:00</td>
+            <td>€15</td>
+            <td>점심시간 (12:00 ~ 13:30)</td>
+          </tr>
+          <tr>
+            <td><strong>에페소 고대 유적</strong></td>
+            <td>셀축</td>
+            <td>08:00 ~ 17:00</td>
+            <td>€40</td>
+            <td>개장 직후 (08:00 ~ 09:30)</td>
+          </tr>
+          <tr>
+            <td><strong>아크로폴리스</strong></td>
+            <td>아테네</td>
+            <td>08:00 ~ 17:00</td>
+            <td>€10 (겨울 할인)</td>
+            <td>개장 직후 (08:00 ~ 09:30)</td>
+          </tr>
+          <tr>
+            <td><strong>고대 고린도 유적</strong></td>
+            <td>고린도</td>
+            <td>08:30 ~ 15:30</td>
+            <td>€8</td>
+            <td>오전 중 (09:00 ~ 10:30)</td>
+          </tr>
+          <tr>
+            <td><strong>메테오라 수도원</strong></td>
+            <td>칼람바카</td>
+            <td>09:00 ~ 16:00</td>
+            <td>수도원당 €3</td>
+            <td>오전 10시 이전</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. 선택 식당 및 예쁜 카페 카드 -->
+  <section class="card">
+    <h2>🍽️ 확정 식당 후보 & 예쁜 카페 카드</h2>
+    
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>[식당] Tarihi Sultanahmet Köftecisi Selim Usta</strong>
+        <ul>
+          <li><strong>위치:</strong> 튀르키예 이스탄불 술탄아흐멧</li>
+          <li><strong>선택 이유:</strong> 100년 전통, 자극적이지 않고 숯불향 나는 쾨프테와 항아리 케밥으로 호불호 없음</li>
+          <li><strong>확인일 / 출처:</strong> 2026.10.02 / 네이버 지도 및 현지 가이드 추천</li>
+        </ul>
+        <a href="https://www.google.com/maps/search/?api=1&query=Tarihi%20Sultanahmet%20Koftecisi%20Selim%20Usta%20Istanbul" target="_blank" rel="noopener noreferrer" class="map-btn">📍 지도 보기 (새 탭)</a>
+      </div>
+
+      <div class="info-item">
+        <strong>[식당] Kostas Souvlaki (O Kostas)</strong>
+        <ul>
+          <li><strong>위치:</strong> 그리스 아테네 신타그마/플라카</li>
+          <li><strong>선택 이유:</strong> 수십 년 전통의 담백하고 신선한 수블라키 성지, 가볍고 만족스러운 점심</li>
+          <li><strong>확인일 / 출처:</strong> 2026.10.02 / Tripadvisor & 카카오맵 후기</li>
+        </ul>
+        <a href="https://www.google.com/maps/search/?api=1&query=Kostas%20Souvlaki%20Pentelis%205%20Athens" target="_blank" rel="noopener noreferrer" class="map-btn">📍 지도 보기 (새 탭)</a>
+      </div>
+
+      <div class="info-item">
+        <strong>[카페] Pierre Loti Café</strong>
+        <ul>
+          <li><strong>위치:</strong> 이스탄불 골든혼 언덕</li>
+          <li><strong>특징:</strong> 케이블카를 타고 올라가 이스탄불 전경을 보며 전통 모래 커피 감상</li>
+          <li><strong>확인일:</strong> 2026.10.02</li>
+        </ul>
+        <a href="https://www.google.com/maps/search/?api=1&query=Pierre%20Loti%20Cafe%20Istanbul" target="_blank" rel="noopener noreferrer" class="map-btn">📍 지도 보기 (새 탭)</a>
+      </div>
+
+      <div class="info-item">
+        <strong>[카페] A for Athens Rooftop Cafe</strong>
+        <ul>
+          <li><strong>위치:</strong> 아테네 모나스티라키 광장</li>
+          <li><strong>특징:</strong> 아크로폴리스 야경과 시내 전경이 파노라마로 펼쳐지는 뷰 카페 (프레도 카푸치노 추천)</li>
+          <li><strong>확인일:</strong> 2026.10.02</li>
+        </ul>
+        <a href="https://www.google.com/maps/search/?api=1&query=A%20for%20Athens%20Rooftop%20Athens" target="_blank" rel="noopener noreferrer" class="map-btn">📍 지도 보기 (새 탭)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 날씨, 복장 및 수하물 가이드 -->
+  <section class="card">
+    <h2>🌤️ 2월 날씨·복장 및 수하물 규정</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>튀르키예 (이스탄불 & 카파도키아)</strong>
+        - 늦겨울 날씨 (카파도키아 새벽 -5°C 이하)<br>
+        - <strong>복장:</strong> 두꺼운 패딩, 방한 모자/장갑, 핫팩 필수<br>
+        - <strong>이슬람 사원:</strong> 여성을 위한 히잡(스카프) 준비
+      </div>
+      <div class="info-item">
+        <strong>그리스 (아테네 & 메테오라)</strong>
+        - 온화하나 일교차가 큼 (6°C ~ 14°C)<br>
+        - <strong>복장:</strong> 경량 패딩, 레이어드 가디건<br>
+        - <strong>수도원:</strong> 여성 긴치마, 남성 긴바지 필수
+      </div>
+      <div class="info-item">
+        <strong>현지 국내선 수하물 규정 ⚠️</strong>
+        - 위탁 수하물: <strong>1인당 15kg ~ 20kg 제한</strong> (국제선 23kg보다 작음)<br>
+        - 기내 수하물: 8kg 이내<br>
+        - <em>Tip: 올리브유 등 무게 나가는 선물은 여행 후반부에 구매!</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 우천 및 기상 대안 -->
+  <section class="card">
+    <h2>☔ 우천 및 강풍 시 대안 계획</h2>
+    <div class="unconfirmed-box">
+      <strong>🎈 카파도키아 열기구 취소 시 대체 활동 (기상 악화 확률 약 50%)</strong>
+      <ol style="margin-left: 20px; margin-top: 6px;">
+        <li><strong>우치히사르 요새 & 카브신 동굴 마을:</strong> 카파도키아 최고 높은 바위 요새 전망 감상</li>
+        <li><strong>파샤바 계곡 (버섯바위):</strong> 독특한 버섯 모양 자연 지형 탐방</li>
+        <li><strong>Dibek Coffee:</strong> 전통 항아리 모래 커피 체험 및 여유로운 휴식</li>
+        <li><strong>아바노스 도자기 공방:</strong> 장인의 도자기 제작 체험</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7. 준비물 체크리스트 (localStorage 보존) -->
+  <section class="card">
+    <h2>🎒 준비물 체크리스트</h2>
+    <p style="font-size:15px; color:var(--text-muted);">항목을 체크하면 이 브라우저에 자동 저장됩니다.</p>
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+      <strong id="check-counter">준비율: 0/8 (0%)</strong>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <ul class="checklist" id="checklist">
+      <li>
+        <input type="checkbox" id="ITEM-01" onchange="toggleCheck('ITEM-01')">
+        <span class="checklist-print-status" id="status-ITEM-01">[미준비]</span>
+        <label for="ITEM-01"><code>ITEM-01</code> [서류] 여권, 항공권 E-티켓, 여권 사본</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-02" onchange="toggleCheck('ITEM-02')">
+        <span class="checklist-print-status" id="status-ITEM-02">[미준비]</span>
+        <label for="ITEM-02"><code>ITEM-02</code> [신앙·학습] 성경책, 성지순례 가이드북, 메모장</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-03" onchange="toggleCheck('ITEM-03')">
+        <span class="checklist-print-status" id="status-ITEM-03">[미준비]</span>
+        <label for="ITEM-03"><code>ITEM-03</code> [의류] 방한 패딩, 모자/장갑, 사원용 스카프/긴치마, 편한 트레킹화</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-04" onchange="toggleCheck('ITEM-04')">
+        <span class="checklist-print-status" id="status-ITEM-04">[미준비]</span>
+        <label for="ITEM-04"><code>ITEM-04</code> [전자기기] 멀티 어댑터(C/F타입), 보조배터리, 핫팩</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-05" onchange="toggleCheck('ITEM-05')">
+        <span class="checklist-print-status" id="status-ITEM-05">[미준비]</span>
+        <label for="ITEM-05"><code>ITEM-05</code> [상비약] 종합감기약, 소화제, 지사제, 멀미약, 진통제</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-06" onchange="toggleCheck('ITEM-06')">
+        <span class="checklist-print-status" id="status-ITEM-06">[미준비]</span>
+        <label for="ITEM-06"><code>ITEM-06</code> [기타] 접이식 우산/우의, 유로/리라 환전 현금 및 카드</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-07" onchange="toggleCheck('ITEM-07')">
+        <span class="checklist-print-status" id="status-ITEM-07">[미준비]</span>
+        <label for="ITEM-07"><code>ITEM-07</code> [세면/위생] 개인 세면도구, 마스크, 물티슈</label>
+      </li>
+      <li>
+        <input type="checkbox" id="ITEM-08" onchange="toggleCheck('ITEM-08')">
+        <span class="checklist-print-status" id="status-ITEM-08">[미준비]</span>
+        <label for="ITEM-08"><code>ITEM-08</code> [간식] 한식 고추장/김/컵라면 (현지식 대비용)</label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 8. 미정 및 방문 전 재확인 항목 -->
+  <section class="card">
+    <h2>❓ 미정 및 방문 전 재확인 항목</h2>
+    <div class="unconfirmed-box">
+      <strong>⚠️ 미정 항목:</strong>
+      <p>Day 3 카파도키아 열기구 취소 시 당일 현지 기상 상황에 따른 세부 카페/동선</p>
+    </div>
+    <div class="info-item" style="margin-top: 12px;">
+      <strong>🔍 방문 전 필수 재확인:</strong>
+      <ol style="margin-left: 20px; margin-top: 4px;">
+        <li>출발 24시간 전 카파도키아 열기구 기상 승인 상태 확인</li>
+        <li>현지 국내선 위탁 수하물 무게 제한 (15~20kg) 초과 여부</li>
+        <li>메테오라 각 수도원별 2월 정기 휴관일 최종 점검</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p>저장소 주소: <code>https://github.com/j1joa-creator/vision-trip-2027</code></p>
+    <p>공유 Pages 주소: <code>https://j1joa-creator.github.io/vision-trip-2027</code></p>
+    <p style="margin-top:8px;">© 2027 튀르키예·그리스 성지순례 결정 기록지. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  // 고정 여행 ID 및 스토리지 키
+  const TRAVEL_ID = "HOLY_LAND_TOUR_2027";
+  const STORAGE_KEY = `travel_checklist_${TRAVEL_ID}`;
+  const ALL_ITEMS = ["ITEM-01", "ITEM-02", "ITEM-03", "ITEM-04", "ITEM-05", "ITEM-06", "ITEM-07", "ITEM-08"];
+
+  // 초기화 및 복원 함수
+  function initChecklist() {
+    let savedState = {};
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        savedState = JSON.parse(data);
+      }
+    } catch (e) {
+      console.warn("localStorage 접근 제한 또는 데이터 손상:", e);
+      document.getElementById('storage-alert').innerText = "⚠️ 브라우저 설정으로 인해 체크 상태 저장이 제한되었습니다. 체크 및 인쇄 기능은 정상 작동합니다.";
+    }
+
+    ALL_ITEMS.forEach(id => {
+      const checkbox = document.getElementById(id);
+      const printStatus = document.getElementById(`status-${id}`);
+      if (checkbox) {
+        checkbox.checked = !!savedState[id];
+        if (printStatus) {
+          printStatus.innerText = checkbox.checked ? "[준비 완료]" : "[미준비]";
+        }
+      }
+    });
+
+    updateProgress();
+  }
+
+  // 체크 변경 시 상태 반영 및 저장
+  function toggleCheck(id) {
+    const checkbox = document.getElementById(id);
+    const printStatus = document.getElementById(`status-${id}`);
+    if (printStatus && checkbox) {
+      printStatus.innerText = checkbox.checked ? "[준비 완료]" : "[미준비]";
+    }
+
+    let savedState = {};
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) savedState = JSON.parse(data);
+      savedState[id] = checkbox.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+    } catch (e) {
+      console.warn("localStorage 저장 실패:", e);
+    }
+
+    updateProgress();
+  }
+
+  // 진행률 및 개수 계산 (반올림 처리)
+  function updateProgress() {
+    let checkedCount = 0;
+    const totalCount = ALL_ITEMS.length;
+
+    ALL_ITEMS.forEach(id => {
+      const checkbox = document.getElementById(id);
+      if (checkbox && checkbox.checked) {
+        checkedCount++;
+      }
+    });
+
+    const percentage = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
+    document.getElementById('check-counter').innerText = `준비율: ${checkedCount}/${totalCount} (${percentage}%)`;
+    document.getElementById('progress-bar').style.width = `${percentage}%`;
+  }
+
+  // 체크리스트 초기화 (취소/확인 팝업 포함 및 전용 키만 삭제)
+  function resetChecklist() {
+    if (confirm("이 여행의 준비물 체크 상태를 초기화하시겠습니까?")) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        console.warn("localStorage 삭제 실패:", e);
+      }
+      initChecklist();
+    }
+  }
+
+  // 페이지 공유 기능
+  function sharePage() {
+    if (window.location.protocol.startsWith('http')) {
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert("페이지 링크가 클립보드에 복사되었습니다!\n가족들에게 공유해 보세요.");
+        }).catch(() => {
+          prompt("아래 URL을 복사(Ctrl+C)하여 공유하세요:", url);
+        });
+      } else {
+        prompt("아래 URL을 복사(Ctrl+C)하여 공유하세요:", url);
+      }
+    } else {
+      alert("현재 로컬 파일(file:) 환경입니다.\nGitHub Pages 등에 게시 후 공유 버튼을 누르면 링크가 복사됩니다.");
+    }
+  }
+
+  // 페이지 로드 시 초기화 실행
+  document.addEventListener('DOMContentLoaded', initChecklist);
+</script>
+
+</body>
+</html>
