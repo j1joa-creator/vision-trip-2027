@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가족 여행 안내서 - Vision Trip 2027</title>
+  <style>
+    /* --------------------------------------------------
+       디자인 시스템: 따뜻한 크림, 짙은 초록, 주황색 포인트
+    -------------------------------------------------- */
+    :root {
+      --bg-color: #fdfbf7;
+      --card-bg: #ffffff;
+      --text-main: #2c3e35;
+      --text-sub: #5a6b62;
+      --primary-green: #1b4332;
+      --accent-orange: #e76f51;
+      --border-color: #e2ebd9;
+      --highlight-bg: #f4f7f2;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      font-size: 17px;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: var(--primary-green);
+      color: #ffffff;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #d8f3dc;
+    }
+
+    .hero-svg {
+      width: 100%;
+      max-height: 120px;
+      margin-top: 15px;
+    }
+
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      color: var(--primary-green);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .info-card {
+      background-color: var(--highlight-bg);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+
+    .info-card strong {
+      display: block;
+      color: var(--primary-green);
+      font-size: 0.9rem;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .time-slot {
+      border-left: 4px solid var(--accent-orange);
+      padding-left: 12px;
+    }
+
+    .time-badge {
+      display: inline-block;
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .restaurant-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background-color: #fff;
+    }
+
+    .restaurant-card h3 {
+      font-size: 1.1rem;
+      color: var(--primary-green);
+      margin-bottom: 6px;
+    }
+
+    .meta-text {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: var(--primary-green);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 44px;
+    }
+
+    .btn:hover, .btn:focus {
+      background-color: #2d6a4f;
+      outline: 2px solid var(--accent-orange);
+    }
+
+    .btn-accent {
+      background-color: var(--accent-orange);
+    }
+
+    .btn-accent:hover, .btn-accent:focus {
+      background-color: #d95d39;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--primary-green);
+      border: 1px solid var(--primary-green);
+    }
+
+    .tag-pending {
+      display: inline-block;
+      background-color: #fff3cd;
+      color: #856404;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .checklist-progress {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .checklist-category {
+      margin-bottom: 16px;
+    }
+
+    .checklist-category h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--primary-green);
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent-orange);
+      cursor: pointer;
+    }
+
+    .check-item label {
+      cursor: pointer;
+      flex-grow: 1;
+    }
+
+    .print-status {
+      display: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .notice-box {
+      background-color: #eef5fc;
+      border-left: 4px solid #3182ce;
+      padding: 12px;
+      font-size: 0.88rem;
+      margin-top: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* --------------------------------------------------
+       인쇄 스타일 (@media print)
+    -------------------------------------------------- */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+        font-size: 12pt;
+      }
+
+      header {
+        background: none;
+        color: #000;
+        border-bottom: 2px solid #000;
+        border-radius: 0;
+        padding: 10px 0;
+      }
+
+      header p { color: #333; }
+      .hero-svg, .btn-group { display: none !important; }
+
+      section {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 12px 0;
+        page-break-inside: avoid;
+      }
+
+      .btn { display: none !important; }
+      .check-item input[type="checkbox"] { display: none; }
+      .print-status { display: inline; }
+      a { text-decoration: none; color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>가족 여행 안내서</h1>
+    <p>Vision Trip 2027 | 확정 일정 및 여행 가이드</p>
+    <svg class="hero-svg" viewBox="0 0 500 100" preserveAspectRatio="none">
+      <path d="M0,80 Q125,20 250,80 T500,80 L500,100 L0,100 Z" fill="#2d6a4f" opacity="0.7"/>
+      <path d="M0,90 Q150,40 300,90 T500,90 L500,100 L0,100 Z" fill="#e76f51" opacity="0.5"/>
+    </svg>
+  </header>
+
+  <!-- 1. 여행 개요 -->
+  <section>
+    <h2>1. 여행 개요</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <strong>여행지 / 기간</strong>
+        <span>경남 고성군 / 1박 2일</span>
+      </div>
+      <div class="info-card">
+        <strong>인원 구성</strong>
+        <span>성인 2명, 유아 1명 (걷기 보통, 식사 제한 없음)</span>
+      </div>
+      <div class="info-card">
+        <strong>이동 수단</strong>
+        <span>대중교통 (시외버스)</span>
+      </div>
+      <div class="info-card">
+        <strong>숙소 상태</strong>
+        <span class="tag-pending">미정 (지역만 설정)</span>
+      </div>
+    </div>
+    <div class="notice-box">
+      <strong>공개 범위 안내:</strong> 본 페이지는 GitHub Pages(j1joa-creator/vision-trip-2027)에 게시되는 공개 페이지이므로 실명, 연락처, 예약번호 등의 개인정보는 포함되어 있지 않습니다.
+    </div>
+  </section>
+
+  <!-- 2. 날짜별 일정 -->
+  <section>
+    <h2>2. 확정 일정 및 활동</h2>
+    <div class="timeline">
+      <div class="time-slot">
+        <span class="time-badge">1일차 오전 (계획 시간)</span>
+        <p><strong>버스터미널 도착 및 이동</strong></p>
+        <p class="meta-text">마산시외버스터미널 도착 후 고성행 이동수단 확인</p>
+      </div>
+      <div class="time-slot">
+        <span class="time-badge">1일차 점심 (계획 시간)</span>
+        <p><strong>선택 식당 방문 및 휴식</strong></p>
+      </div>
+      <div class="time-slot">
+        <span class="time-badge">1일차 오후 (계획 시간)</span>
+        <p><strong>주요 관람지 방문</strong></p>
+        <p class="meta-text">※ 우천 대안: 실내 박물관 또는 전시관 관람 (방문 전 운행 여부 재확인)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 선택 식당 안내 -->
+  <section>
+    <h2>3. 선택 식당 안내</h2>
+    
+    <div class="restaurant-card">
+      <h3>도솔마을 <span class="meta-text">(한식)</span></h3>
+      <p class="meta-text"><strong>추천 이유:</strong> 영유아 동반 시 걷기 편하고 자극적이지 않은 한정식 구성</p>
+      <p class="meta-text"><strong>가격대:</strong> 1인당 약 11,000원 ~ 15,000원 (확인일: 2026-10-02)</p>
+      <p class="meta-text"><strong>재확인 필요:</strong> 정기 휴무일, 유모차 진입 가능 여부</p>
+      <div class="btn-group">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%EB%83%84%EA%B5%AD%EB%A7%88%EC%9D%84+%EB%8F%84%EC%86%94%EB%A7%88%EC%9D%84" target="_blank" rel="noopener noreferrer" title="새 탭에서 Google 지도 열기">도솔마을 지도 보기 ↗</a>
+        <a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=%EB%83%84%EA%B5%AD%EB%A7%88%EC%9D%84+%EB%8F%84%EC%86%94%EB%A7%88%EC%9D%84" target="_blank" rel="noopener noreferrer" title="새 탭에서 길찾기 열기">길찾기 ↗</a>
+      </div>
+    </div>
+
+    <div class="restaurant-card">
+      <h3>저녁 식사 장소 <span class="tag-pending">미정</span></h3>
+      <p class="meta-text">사용자 선택 대기 중 (방문 전 확인 필요)</p>
+    </div>
+  </section>
+
+  <!-- 4. 준비물 체크리스트 -->
+  <section>
+    <h2>
+      4. 준비물 체크리스트
+      <span id="checklist-counter" class="checklist-progress">0/0 (0%)</span>
+    </h2>
+
+    <div class="checklist-category">
+      <h3>공통 준비물</h3>
+      <div class="check-item">
+        <input type="checkbox" id="p01" onchange="toggleCheck('p01')">
+        <label for="p01">세면도구 및 개인 위생용품</label>
+        <span class="print-status" id="status-p01">[미준비]</span>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="p02" onchange="toggleCheck('p02')">
+        <label for="p02">충전기 및 보조배터리</label>
+        <span class="print-status" id="status-p02">[미준비]</span>
+      </div>
+    </div>
+
+    <div class="checklist-category">
+      <h3>활동 및 영유아용</h3>
+      <div class="check-item">
+        <input type="checkbox" id="p03" onchange="toggleCheck('p03')">
+        <label for="p03">휴대용 유모차 또는 아기띠</label>
+        <span class="print-status" id="status-p03">[미준비]</span>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="p04" onchange="toggleCheck('p04')">
+        <label for="p04">비상약 (열해열제, 상처연고, 반창고)</label>
+        <span class="print-status" id="status-p04">[미준비]</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="resetChecklist()">체크리스트 초기화</button>
+    </div>
+  </section>
+
+  <!-- 5. 공유 및 인쇄 -->
+  <section>
+    <h2>5. 페이지 공유 및 인쇄</h2>
+    <div class="btn-group">
+      <button class="btn btn-accent" onclick="copyPageUrl()">페이지 링크 복사</button>
+      <button class="btn" onclick="window.print()">일정표 인쇄 / PDF 저장</button>
+    </div>
+    <div id="notice-area" class="notice-box" style="display:none;"></div>
+  </section>
+
+  <script>
+    /* --------------------------------------------------
+       상태 관리 및 localStorage (VISION_TRIP_2027 전용 키)
+    -------------------------------------------------- */
+    const TRIP_ID = "VISION_TRIP_2027";
+    const STORAGE_KEY = `trip_checklist_${TRIP_ID}`;
+    const ITEM_IDS = ['p01', 'p02', 'p03', 'p04'];
+
+    document.addEventListener("DOMContentLoaded", function() {
+      loadChecklistState();
+      updateProgress();
+      checkFileProtocol();
+    });
+
+    function checkFileProtocol() {
+      if (window.location.protocol === 'file:') {
+        showNotice("현재 로컬 파일(file:) 환경입니다. https://j1joa-creator.github.io/vision-trip-2027/ 주소로 접속하시면 정상적인 링크 복사 및 저장 기능 이용이 가능합니다.");
+      }
+    }
+
+    function showNotice(msg) {
+      const area = document.getElementById("notice-area");
+      area.style.display = "block";
+      area.innerText = msg;
+    }
+
+    function saveChecklistState(state) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        showNotice("브라우저 설정으로 인해 체크 상태 저장이 제한되었습니다.");
+      }
+    }
+
+    function loadChecklistState() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (data) {
+          const state = JSON.parse(data);
+          ITEM_IDS.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && state[id] !== undefined) {
+              el.checked = state[id];
+              updatePrintStatus(id, state[id]);
+            }
+          });
+        }
+      } catch (e) {
+        console.error("Load error:", e);
+      }
+    }
+
+    function toggleCheck(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const isChecked = el.checked;
+      updatePrintStatus(id, isChecked);
+
+      let state = {};
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) state = JSON.parse(stored);
+      } catch (e) {}
+
+      state[id] = isChecked;
+      saveChecklistState(state);
+      updateProgress();
+    }
+
+    function updatePrintStatus(id, isChecked) {
+      const statusEl = document.getElementById(`status-${id}`);
+      if (statusEl) {
+        statusEl.innerText = isChecked ? "[준비 완료]" : "[미준비]";
+      }
+    }
+
+    function updateProgress() {
+      const total = ITEM_IDS.length;
+      if (total === 0) {
+        document.getElementById("checklist-counter").innerText = "0/0 (0%)";
+        return;
+      }
+
+      let checkedCount = 0;
+      ITEM_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.checked) checkedCount++;
+      });
+
+      const percentage = Math.round((checkedCount / total) * 100);
+      document.getElementById("checklist-counter").innerText = `${checkedCount}/${total} (${percentage}%)`;
+    }
+
+    function resetChecklist() {
+      if (confirm("준비물 체크 상태를 초기화하시겠습니까?")) {
+        ITEM_IDS.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.checked = false;
+            updatePrintStatus(id, false);
+          }
+        });
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+        updateProgress();
+      }
+    }
+
+    function copyPageUrl() {
+      if (window.location.protocol === 'file:') {
+        alert("로컬 파일 환경입니다. GitHub Pages에 푸시 후 배포된 주소에서 복사하실 수 있습니다.");
+        return;
+      }
+
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert("페이지 링크가 복사되었습니다.");
+        }).catch(() => {
+          fallbackCopyUrl(url);
+        });
+      } else {
+        fallbackCopyUrl(url);
+      }
+    }
+
+    function fallbackCopyUrl(url) {
+      prompt("아래 주소를 복사(Ctrl+C)하세요:", url);
+    }
+  </script>
+</body>
+</html>
